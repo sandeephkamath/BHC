@@ -4,8 +4,8 @@ public class Player {
 
     int score;
     int wickets;
-    boolean battingOver;
-    boolean batting;
+    boolean battingOver = false;
+    boolean batting = false;
 
     public int getScore() {
         return score;
@@ -36,7 +36,7 @@ public class Player {
     }
 
     public void setBattingOver(boolean battingOver) {
-        battingOver = battingOver;
+        this.battingOver = battingOver;
     }
 
     public void score(int playerScore) {

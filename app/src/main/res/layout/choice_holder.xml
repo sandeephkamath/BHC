@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="choice"
+            type="com.lt.hc.ui.model.Choice"/>
+    </data>
+
+
+    <TextView
+        android:gravity="center"
+        android:layout_margin="30dp"
+        android:text="@{String.valueOf(choice.value)}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </TextView>
+
+</layout>

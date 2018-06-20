@@ -1,8 +1,8 @@
 package com.lt.hc.game;
 
-import com.lt.hc.game.util.RandomNumberGeneratorUtil;
+import android.util.Log;
 
-import java.util.Random;
+import com.lt.hc.Constants;
 
 public class Game {
 
@@ -15,10 +15,16 @@ public class Game {
 
     }
 
-    Game(GameConfig gameConfig, GameListener gameListener) {
+    public Game(GameConfig gameConfig, GameListener gameListener) {
         this.gameConfig = gameConfig;
         player = new Player();
         opponent = new Player();
+
+        player.setBatting(true);//////////////////
+        player.setWickets(gameConfig.getWickets());
+        opponent.setWickets(gameConfig.getWickets());
+
+
         this.gameListener = gameListener;
         gameListener.prepare(player, opponent, this.gameConfig);
     }
@@ -37,6 +43,10 @@ public class Game {
                               int playerChoice,
                               int opponentChoice,
                               int run) {
+
+        Log.d(Constants.TAG, "TICK ");
+
+
         if (playerChoice == opponentChoice) {
             battingPlayer.out();
             if (battingPlayer.isAllOut()) {
@@ -45,15 +55,19 @@ public class Game {
                     if (battingPlayer.getScore() == bowlingPlayer.getScore()) {
                         gameListener.draw();
                     } else {
-                        gameListener.allOut();
+                        gameListener.lose();
                     }
+                }else {
+                    gameListener.allOut();
+                    battingPlayer.setBatting(false);
+                    bowlingPlayer.setBatting(true);
                 }
             } else {
                 gameListener.out();
             }
         } else {
             battingPlayer.score(run);
-            gameListener.score(run);
+            gameListener.score(battingPlayer.getScore(), playerChoice, opponentChoice);
             if (bowlingPlayer.isBattingOver() && battingPlayer.getScore() > bowlingPlayer.getScore()) {
                 battingPlayer.setBattingOver(true);
                 gameListener.win();
@@ -61,22 +75,9 @@ public class Game {
         }
     }
 
-    private void handlePlayerScore(int playerChoice, int opponentChoice) {
-        if (playerChoice == opponentChoice) {
-
-
-        } else {
-            player.score(playerChoice);
-            gameListener.playerScore(playerChoice);
-            if (opponent.isBattingOver() && player.getScore() > opponent.getScore()) {
-                gameListener.playerWin();
-            }
-        }
-    }
-
     private int getOpponentChoice() {
         if (gameConfig.isAIOpponent()) {
-            return new RandomNumberGeneratorUtil(gameConfig).getRandomNumber();
+            return 1;//new RandomNumberGeneratorUtil(gameConfig).getRandomNumber();
         }
 
         return 0;

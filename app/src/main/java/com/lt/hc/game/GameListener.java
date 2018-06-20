@@ -21,29 +21,34 @@ public abstract class GameListener {
         this.gameConfig = gameConfig;
     }
 
-    abstract void playerScore(int score);
+    public abstract void playerScore(int score, int playerChoice, int opponentChoice);
 
-    abstract void playerWicketFell(int totalWickets, int remainingWickets);
+    public abstract void playerWicketFell(int totalWickets, int remainingWickets);
 
-    abstract void playerLose();
+    public abstract void playerLose();
 
-    abstract void playerWin();
+    public abstract void playerWin();
 
-    abstract void draw();
+    public abstract void playerAllOut();
 
-    abstract void opponentScore();
+    public abstract void draw();
 
-    abstract void opponentWicketFell(int totalWickets, int remainingWickets);
+    public abstract void opponentScore(int score, int playerChoice, int opponentChoice);
 
-    abstract void opponentLose();
+    public abstract void opponentWicketFell(int totalWickets, int remainingWickets);
 
-    abstract void opponentWin();
+    public abstract void opponentLose();
 
-    public void score(int score) {
+    public abstract void opponentWin();
+
+    public abstract void opponentAllOut();
+
+
+    public void score(int score, int playerChoice, int opponentChoice) {
         if (player.isBatting()) {
-            playerScore(score);
+            playerScore(score, playerChoice, opponentChoice);
         } else {
-            opponentScore();
+            opponentScore(score, playerChoice, opponentChoice);
         }
     }
 
@@ -55,7 +60,7 @@ public abstract class GameListener {
         }
     }
 
-    public void allOut() {
+    public void lose() {
         if (player.isBatting()) {
             playerLose();
         } else {
@@ -72,4 +77,11 @@ public abstract class GameListener {
     }
 
 
+    public void allOut() {
+        if (player.isBatting()) {
+            playerAllOut();
+        } else {
+            opponentAllOut();
+        }
+    }
 }
