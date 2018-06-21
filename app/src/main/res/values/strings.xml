@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HC</string>
+    <string name="signin_other_error">Sign in error</string>
 </resources>
