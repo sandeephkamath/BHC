@@ -1,4 +1,4 @@
-package com.lt.hc.ui.model;
+package com.lovoctech.bluetoothhandcricket.ui.model;
 
 /**
  * Created by Sandeep on 6/21/2018.

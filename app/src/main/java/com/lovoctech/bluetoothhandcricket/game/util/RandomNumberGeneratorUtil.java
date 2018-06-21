@@ -1,6 +1,6 @@
-package com.lt.hc.game.util;
+package com.lovoctech.bluetoothhandcricket.game.util;
 
-import com.lt.hc.game.GameConfig;
+import com.lovoctech.bluetoothhandcricket.game.GameConfig;
 
 import java.util.Random;
 

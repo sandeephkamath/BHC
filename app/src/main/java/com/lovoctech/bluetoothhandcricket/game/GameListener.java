@@ -1,4 +1,4 @@
-package com.lt.hc.game;
+package com.lovoctech.bluetoothhandcricket.game;
 
 public abstract class GameListener {
 

@@ -21,6 +21,16 @@ android {
         }
     }
 
+    signingConfigs {
+        debug {
+            storeFile file("key")
+            storePassword "allizwell"
+            keyAlias "bhc"
+            keyPassword "allizwell"
+        }
+    }
+
+
     dataBinding {
         enabled = true
     }

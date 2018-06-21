@@ -5,7 +5,7 @@
     <data>
         <variable
             name="choice"
-            type="com.lt.hc.ui.model.Choice"/>
+            type="com.lovoctech.bluetoothhandcricket.ui.model.Choice"/>
     </data>
 
 

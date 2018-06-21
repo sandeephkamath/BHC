@@ -1,6 +1,6 @@
-package com.lt.hc.ui;
+package com.lovoctech.bluetoothhandcricket.ui;
 
-import com.lt.hc.ui.model.Choice;
+import com.lovoctech.bluetoothhandcricket.ui.model.Choice;
 
 /**
  * Created by Sandeep on 6/21/2018.

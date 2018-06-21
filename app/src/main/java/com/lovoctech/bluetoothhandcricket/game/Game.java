@@ -1,8 +1,8 @@
-package com.lt.hc.game;
+package com.lovoctech.bluetoothhandcricket.game;
 
 import android.util.Log;
 
-import com.lt.hc.Constants;
+import com.lovoctech.bluetoothhandcricket.Constants;
 
 public class Game {
 

@@ -1,4 +1,4 @@
-package com.lt.hc;
+package com.lovoctech.bluetoothhandcricket;
 
 /**
  * Created by Sandeep on 6/21/2018.

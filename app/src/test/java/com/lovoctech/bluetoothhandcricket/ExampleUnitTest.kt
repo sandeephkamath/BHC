@@ -1,4 +1,4 @@
-package com.lt.hc
+package com.lovoctech.bluetoothhandcricket
 
 import org.junit.Test
 

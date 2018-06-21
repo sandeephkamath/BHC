@@ -1,4 +1,4 @@
-package com.lt.hc;
+package com.lovoctech.bluetoothhandcricket;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -17,13 +17,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.lt.hc.game.Game;
-import com.lt.hc.game.GameConfig;
-import com.lt.hc.game.GameListener;
-import com.lt.hc.game.Player;
-import com.lt.hc.ui.ChoiceAdapter;
-import com.lt.hc.ui.ChoiceListener;
-import com.lt.hc.ui.model.Choice;
+import com.lovoctech.bluetoothhandcricket.game.Game;
+import com.lovoctech.bluetoothhandcricket.game.GameConfig;
+import com.lovoctech.bluetoothhandcricket.game.GameListener;
+import com.lovoctech.bluetoothhandcricket.ui.ChoiceAdapter;
+import com.lovoctech.bluetoothhandcricket.ui.ChoiceListener;
+import com.lovoctech.bluetoothhandcricket.ui.model.Choice;
 
 import java.util.ArrayList;
 

@@ -1,10 +1,10 @@
-package com.lt.hc.ui;
+package com.lovoctech.bluetoothhandcricket.ui;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.lt.hc.databinding.ChoiceHolderBinding;
-import com.lt.hc.ui.model.Choice;
+import com.lovoctech.bluetoothhandcricket.databinding.ChoiceHolderBinding;
+import com.lovoctech.bluetoothhandcricket.ui.model.Choice;
 
 /**
  * Created by Sandeep on 6/21/2018.
