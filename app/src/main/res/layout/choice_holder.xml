@@ -3,19 +3,20 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="choice"
-            type="com.lovoctech.bluetoothhandcricket.ui.model.Choice"/>
+            type="com.lovoctech.bluetoothhandcricket.ui.model.Choice" />
     </data>
 
 
-    <TextView
-        android:gravity="center"
-        android:layout_margin="30dp"
-        android:text="@{String.valueOf(choice.value)}"
+    <com.lovoctech.bluetoothhandcricket.ui.custom.RoundButton
+        choice="@{choice}"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:gravity="center">
 
-    </TextView>
+    </com.lovoctech.bluetoothhandcricket.ui.custom.RoundButton>
 
 </layout>
