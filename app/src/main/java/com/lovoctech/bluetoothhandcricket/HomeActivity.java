@@ -148,18 +148,14 @@ public class HomeActivity extends AppCompatActivity {
                 });
     }
 
+
     private void startSignInIntent() {
-      /*  GoogleSignInClient signInClient = GoogleSignIn.getClient(this,
+        GoogleSignInClient signInClient = GoogleSignIn.getClient(this,
                 GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN);
         Intent intent = signInClient.getSignInIntent();
-        startActivityForResult(intent, RC_SIGN_IN);*/
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
-                .requestEmail()
-                .build();
-
-        Intent signInIntent = GoogleSignIn.getClient(this, gso).getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        startActivityForResult(intent, RC_SIGN_IN);
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
