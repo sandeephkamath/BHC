@@ -1,16 +1,14 @@
 package com.lovoctech.bluetoothhandcricket;
 
 import android.content.Intent;
-import android.graphics.Rect;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -18,7 +16,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.lovoctech.bluetoothhandcricket.game.Game;
@@ -27,6 +24,7 @@ import com.lovoctech.bluetoothhandcricket.game.GameListener;
 import com.lovoctech.bluetoothhandcricket.ui.ChoiceAdapter;
 import com.lovoctech.bluetoothhandcricket.ui.ChoiceListener;
 import com.lovoctech.bluetoothhandcricket.ui.model.Choice;
+import com.lovoctech.bluetoothhandcricket.util.Constants;
 
 import java.util.ArrayList;
 
@@ -37,8 +35,30 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private static final int RC_SIGN_IN = 101;
+
     @BindView(R.id.choice_view)
     RecyclerView choiceView;
+
+    @BindView(R.id.batting_indicator)
+    TextView battingIndicator;
+
+    @BindView(R.id.player_score)
+    TextView playerScore;
+
+    @BindView(R.id.player_wicket)
+    TextView playerWicket;
+
+    @BindView(R.id.opponent_score)
+    TextView opponentScore;
+
+    @BindView(R.id.opponent_wicket)
+    TextView opponentWicket;
+
+    @BindView(R.id.opponent_choice)
+    TextView opponentChoice;
+
+    @BindView(R.id.player_choice)
+    TextView playerChoice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +68,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         GameConfig gameConfig = new GameConfig();
-        gameConfig.setWickets(1);
+        gameConfig.setWickets(2);
         gameConfig.setAIOpponent(true);
         final Game game = new Game(gameConfig, getGameListener());
 
@@ -67,51 +87,45 @@ public class HomeActivity extends AppCompatActivity {
                 game.choice(choice.getValue());
             }
         });
-        choiceView.setLayoutManager(new GridLayoutManager(this,3));
+        choiceView.setLayoutManager(new GridLayoutManager(this, 3));
 
-
-        choiceView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                int margin = HomeActivity.this.getResources().getDimensionPixelOffset(R.dimen.size_10);
-                outRect.top = margin;
-                outRect.top = margin;
-                outRect.top = margin;
-                outRect.top = margin;
-            }
-        });
 
         choiceView.setAdapter(choiceAdapter);
 
-       // signInSilently();
+        // signInSilently();
     }
 
     private GameListener getGameListener() {
         return new GameListener() {
             @Override
-            public void playerScore(int score, int playerChoice, int opponentChoice) {
-                Log.d(Constants.TAG, "playerScore " + score + "\n playerChoice " + playerChoice + "\nopponentChoice " + opponentChoice);
+            public void playerScore(int score) {
+                Log.d(Constants.TAG, "playerScore " + score);
+                playerScore.setText(String.valueOf(score));
             }
 
             @Override
             public void playerWicketFell(int totalWickets, int remainingWickets) {
                 Log.d(Constants.TAG, "playerWicketFell " + remainingWickets + "/" + totalWickets);
+                playerWicket.setText(remainingWickets + "/" + totalWickets);
             }
 
             @Override
             public void playerLose() {
                 Log.d(Constants.TAG, "playerLose ");
+                battingIndicator.setText("Lose");
             }
 
             @Override
             public void playerWin() {
                 Log.d(Constants.TAG, "playerWin ");
+                battingIndicator.setText("Win");
             }
 
             @Override
-            public void playerAllOut() {
+            public void playerAllOut(int wickets) {
                 Log.d(Constants.TAG, "playerAllOut ");
+                battingIndicator.setText("Bowling");
+                playerWicket.setText(wickets + "/" + wickets);
             }
 
             @Override
@@ -120,28 +134,28 @@ public class HomeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void opponentScore(int score, int playerChoice, int opponentChoice) {
-                Log.d(Constants.TAG, "opponentScore " + score + "\n playerChoice " + playerChoice + "\nopponentChoice " + opponentChoice);
+            public void opponentScore(int score) {
+                Log.d(Constants.TAG, "opponentScore " + score);
+                opponentScore.setText(String.valueOf(score));
             }
 
             @Override
             public void opponentWicketFell(int totalWickets, int remainingWickets) {
                 Log.d(Constants.TAG, "opponentWicketFell " + remainingWickets + "/" + totalWickets);
+                opponentWicket.setText(remainingWickets + "/" + totalWickets);
             }
 
             @Override
-            public void opponentLose() {
-                Log.d(Constants.TAG, "opponentLose ");
-            }
-
-            @Override
-            public void opponentWin() {
-                Log.d(Constants.TAG, "opponentWin ");
-            }
-
-            @Override
-            public void opponentAllOut() {
+            public void opponentAllOut(int wickets) {
                 Log.d(Constants.TAG, "opponentAllOut ");
+                opponentWicket.setText(wickets + "/" + wickets);
+            }
+
+            @Override
+            public void choice(int playerChoice, int opponentChoice) {
+                Log.d(Constants.TAG, "playerChoice " + playerChoice + "\nopponentChoice " + opponentChoice);
+                HomeActivity.this.playerChoice.setText(String.valueOf(playerChoice));
+                HomeActivity.this.opponentChoice.setText(String.valueOf(opponentChoice));
             }
         };
     }

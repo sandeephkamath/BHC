@@ -11,6 +11,8 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/root_layout"
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 

@@ -2,7 +2,7 @@ package com.lovoctech.bluetoothhandcricket.game;
 
 import android.util.Log;
 
-import com.lovoctech.bluetoothhandcricket.Constants;
+import com.lovoctech.bluetoothhandcricket.util.Constants;
 
 public class Game {
 
@@ -46,7 +46,7 @@ public class Game {
 
         Log.d(Constants.TAG, "TICK ");
 
-
+        gameListener.choice(playerChoice, opponentChoice);
         if (playerChoice == opponentChoice) {
             battingPlayer.out();
             if (battingPlayer.isAllOut()) {
@@ -57,7 +57,7 @@ public class Game {
                     } else {
                         gameListener.lose();
                     }
-                }else {
+                } else {
                     gameListener.allOut();
                     battingPlayer.setBatting(false);
                     bowlingPlayer.setBatting(true);
@@ -67,7 +67,7 @@ public class Game {
             }
         } else {
             battingPlayer.score(run);
-            gameListener.score(battingPlayer.getScore(), playerChoice, opponentChoice);
+            gameListener.score(battingPlayer.getScore());
             if (bowlingPlayer.isBattingOver() && battingPlayer.getScore() > bowlingPlayer.getScore()) {
                 battingPlayer.setBattingOver(true);
                 gameListener.win();

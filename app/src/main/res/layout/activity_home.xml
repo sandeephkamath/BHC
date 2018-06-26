@@ -5,10 +5,66 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
+    <TextView
+        android:id="@+id/opponent_choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/batting_indicator"
+        android:layout_centerHorizontal="true"
+        tools:text="1" />
+
+    <TextView
+        android:id="@+id/player_choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/batting_indicator"
+        android:layout_centerHorizontal="true"
+        tools:text="1" />
+
+    <TextView
+        android:id="@+id/batting_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/batting"
+        tools:text="@string/batting" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/choice_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />
+
+    <TextView
+        android:id="@+id/player_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        tools:text="player score" />
+
+    <TextView
+        android:id="@+id/player_wicket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/player_score"
+        tools:text="player wicket" />
+
+    <TextView
+        android:id="@+id/opponent_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        tools:text="opponent score" />
+
+    <TextView
+        android:id="@+id/opponent_wicket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/opponent_score"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        tools:text="opponent wicket" />
 
 </RelativeLayout>

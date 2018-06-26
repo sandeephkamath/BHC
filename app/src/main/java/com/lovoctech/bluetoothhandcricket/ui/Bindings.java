@@ -11,4 +11,9 @@ public class Bindings {
     public static void setChoice(RoundButton roundButton, Choice choice) {
         roundButton.setChoice(choice);
     }
+
+    @BindingAdapter("choice_listener")
+    public static void setChoiceListener(RoundButton roundButton, ChoiceListener listener) {
+        roundButton.setListener(listener);
+    }
 }

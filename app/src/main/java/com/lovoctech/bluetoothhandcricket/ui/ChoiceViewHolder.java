@@ -1,7 +1,6 @@
 package com.lovoctech.bluetoothhandcricket.ui;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.lovoctech.bluetoothhandcricket.databinding.ChoiceHolderBinding;
 import com.lovoctech.bluetoothhandcricket.ui.model.Choice;
@@ -21,12 +20,7 @@ class ChoiceViewHolder extends RecyclerView.ViewHolder {
     }
 
     void bind(final Choice choice) {
-        choiceHolderBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                choiceListener.onChoice(choice);
-            }
-        });
+        choiceHolderBinding.setListener(choiceListener);
         choiceHolderBinding.setChoice(choice);
         choiceHolderBinding.executePendingBindings();
     }

@@ -7,11 +7,16 @@
         <variable
             name="choice"
             type="com.lovoctech.bluetoothhandcricket.ui.model.Choice" />
+
+        <variable
+            name="listener"
+            type="com.lovoctech.bluetoothhandcricket.ui.ChoiceListener" />
     </data>
 
 
     <com.lovoctech.bluetoothhandcricket.ui.custom.RoundButton
         choice="@{choice}"
+        choice_listener="@{listener}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center">
