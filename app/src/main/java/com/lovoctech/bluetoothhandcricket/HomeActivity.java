@@ -1,13 +1,16 @@
 package com.lovoctech.bluetoothhandcricket;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -64,10 +67,24 @@ public class HomeActivity extends AppCompatActivity {
                 game.choice(choice.getValue());
             }
         });
-        choiceView.setLayoutManager(new LinearLayoutManager(this));
+        choiceView.setLayoutManager(new GridLayoutManager(this,3));
+
+
+        choiceView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                int margin = HomeActivity.this.getResources().getDimensionPixelOffset(R.dimen.size_10);
+                outRect.top = margin;
+                outRect.top = margin;
+                outRect.top = margin;
+                outRect.top = margin;
+            }
+        });
+
         choiceView.setAdapter(choiceAdapter);
 
-        signInSilently();
+       // signInSilently();
     }
 
     private GameListener getGameListener() {

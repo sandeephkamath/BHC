@@ -1,12 +1,10 @@
 package com.lovoctech.bluetoothhandcricket.ui.custom;
 
 import android.content.Context;
-import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -21,9 +19,10 @@ import butterknife.ButterKnife;
 
 public class RoundButton extends LinearLayout {
 
-   /* @BindView(R.id.button)
-    Button button;*/
-   RoundButtonBinding binding;
+    @BindView(R.id.button)
+    Button button;
+
+    RoundButtonBinding binding;
     private Choice choice;
 
     public RoundButton(Context context) {
@@ -42,10 +41,11 @@ public class RoundButton extends LinearLayout {
     private void initializeViews(Context context) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-       binding =  RoundButtonBinding.inflate(inflater);
+        binding = RoundButtonBinding.inflate(inflater);
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.round_button, this, true);
-
-       //binding.setChoice(choice);
+        ButterKnife.bind(this, binding.getRoot());
+        setButtonWidth();
+        //binding.setChoice(choice);
        /* if (inflater != null) {
             View view = inflater.inflate(R.layout.round_button, this);
             //ButterKnife.bind(view, this);
@@ -54,15 +54,15 @@ public class RoundButton extends LinearLayout {
 
     }
 
-    private void setButtonWidth(Context context) {
-        int size = Util.getDeviceWidth(context) / 3;
-       // button.setLayoutParams(new LinearLayout.LayoutParams(size, size));
+    private void setButtonWidth() {
+        int size = Util.getDeviceWidth(getContext()) / 3;
+         button.setLayoutParams(new LinearLayout.LayoutParams(size, size));
     }
 
 
     public void setChoice(Choice choice) {
         this.choice = choice;
-        if(binding!=null){
+        if (binding != null) {
             binding.setChoice(choice);
             binding.executePendingBindings();
         }

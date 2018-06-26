@@ -8,7 +8,7 @@ import com.lovoctech.bluetoothhandcricket.ui.model.Choice;
 public class Bindings {
 
     @BindingAdapter("choice")
-    public void setChoice(RoundButton roundButton, Choice choice) {
+    public static void setChoice(RoundButton roundButton, Choice choice) {
         roundButton.setChoice(choice);
     }
 }
