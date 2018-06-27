@@ -1,6 +1,13 @@
 package com.lovoctech.bluetoothhandcricket.game;
 
+import javax.inject.Inject;
+
 public class Player {
+
+    @Inject
+    public Player(){
+
+    }
 
     int score;
     int wickets;

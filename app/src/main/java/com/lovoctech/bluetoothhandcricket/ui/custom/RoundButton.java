@@ -12,8 +12,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.lovoctech.bluetoothhandcricket.R;
+
 import com.lovoctech.bluetoothhandcricket.databinding.RoundButtonBinding;
-import com.lovoctech.bluetoothhandcricket.game.util.RandomNumberGeneratorUtil;
+import com.lovoctech.bluetoothhandcricket.util.RandomNumberGeneratorUtil;
 import com.lovoctech.bluetoothhandcricket.ui.ChoiceListener;
 import com.lovoctech.bluetoothhandcricket.ui.Util;
 import com.lovoctech.bluetoothhandcricket.ui.model.Choice;

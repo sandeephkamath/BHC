@@ -1,5 +1,7 @@
 package com.lovoctech.bluetoothhandcricket.game;
 
+import javax.inject.Inject;
+
 public abstract class GameListener {
 
     private Player player;
@@ -13,6 +15,13 @@ public abstract class GameListener {
     public GameListener(Player player, Player opponent) {
         this.player = player;
         this.opponent = opponent;
+    }
+
+    @Inject
+    public void GameListener(Player player, Player opponent, GameConfig gameConfig) {
+        this.player = player;
+        this.opponent = opponent;
+        this.gameConfig = gameConfig;
     }
 
     public void prepare(Player player, Player opponent, GameConfig gameConfig) {

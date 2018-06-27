@@ -15,16 +15,13 @@ public class Game {
 
     }
 
-    public Game(GameConfig gameConfig, GameListener gameListener) {
+    public Game(GameConfig gameConfig, GameListener gameListener, Player player, Player opponent) {
         this.gameConfig = gameConfig;
-        player = new Player();
-        opponent = new Player();
-
-        player.setBatting(true);//////////////////
+        this.player = player;
+        this.opponent = opponent;
+        player.setBatting(true);//// TODO: 27/6/18 Implement toss logic
         player.setWickets(gameConfig.getWickets());
         opponent.setWickets(gameConfig.getWickets());
-
-
         this.gameListener = gameListener;
         gameListener.prepare(player, opponent, this.gameConfig);
     }

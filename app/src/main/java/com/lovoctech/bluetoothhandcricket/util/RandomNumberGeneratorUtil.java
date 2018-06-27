@@ -1,4 +1,4 @@
-package com.lovoctech.bluetoothhandcricket.game.util;
+package com.lovoctech.bluetoothhandcricket.util;
 
 import com.lovoctech.bluetoothhandcricket.game.GameConfig;
 

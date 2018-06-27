@@ -21,12 +21,18 @@ import com.google.android.gms.tasks.Task;
 import com.lovoctech.bluetoothhandcricket.game.Game;
 import com.lovoctech.bluetoothhandcricket.game.GameConfig;
 import com.lovoctech.bluetoothhandcricket.game.GameListener;
+import com.lovoctech.bluetoothhandcricket.game.Player;
+import com.lovoctech.bluetoothhandcricket.game.dependency.DaggerGameComponent;
+import com.lovoctech.bluetoothhandcricket.game.dependency.GameComponent;
+import com.lovoctech.bluetoothhandcricket.game.dependency.GameModule;
 import com.lovoctech.bluetoothhandcricket.ui.ChoiceAdapter;
 import com.lovoctech.bluetoothhandcricket.ui.ChoiceListener;
 import com.lovoctech.bluetoothhandcricket.ui.model.Choice;
 import com.lovoctech.bluetoothhandcricket.util.Constants;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,6 +66,9 @@ public class HomeActivity extends AppCompatActivity {
     @BindView(R.id.player_choice)
     TextView playerChoice;
 
+    @Inject
+    Game game;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,10 +76,15 @@ public class HomeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        GameConfig gameConfig = new GameConfig();
+       /* GameConfig gameConfig = new GameConfig();
         gameConfig.setWickets(2);
         gameConfig.setAIOpponent(true);
-        final Game game = new Game(gameConfig, getGameListener());
+        final Game game = new Game(gameConfig, getGameListener(), new Player(),new Player());*/
+
+
+       GameComponent gameComponent = DaggerGameComponent.builder().gameModule(new GameModule(getGameListener())).build();
+
+       gameComponent.inject(this);
 
 
         ArrayList<Choice> choices = new ArrayList<>();
