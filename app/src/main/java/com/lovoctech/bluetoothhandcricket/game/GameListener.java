@@ -12,11 +12,6 @@ public abstract class GameListener {
 
     }
 
-    public GameListener(Player player, Player opponent) {
-        this.player = player;
-        this.opponent = opponent;
-    }
-
     @Inject
     public void GameListener(Player player, Player opponent, GameConfig gameConfig) {
         this.player = player;
@@ -40,6 +35,8 @@ public abstract class GameListener {
 
     public abstract void playerAllOut(int wickets);
 
+    public abstract void playerOversFinish();
+
     public abstract void draw();
 
     public abstract void opponentScore(int score);
@@ -48,8 +45,14 @@ public abstract class GameListener {
 
     public abstract void opponentAllOut(int wickets);
 
-    public abstract void choice(int playerChoice, int opponentChoice);
+    public abstract void choice(int playerChoice, int opponentChoice, String overs);
 
+    public abstract void opponentOversFinish();
+
+
+    public void play(int playerChoice, int opponentChoice,String overs) {
+        choice(playerChoice, opponentChoice, overs);
+    }
 
     public void score(int score) {
         if (player.isBatting()) {
@@ -89,6 +92,23 @@ public abstract class GameListener {
             playerAllOut(gameConfig.getWickets());
         } else {
             opponentAllOut(gameConfig.getWickets());
+        }
+    }
+
+
+    public void overFinish() {
+        if (player.isBatting()) {
+            playerOversFinish();
+        } else {
+            opponentOversFinish();
+        }
+    }
+
+    public void declareBowlingPlayerWin() {
+        if (!player.isBatting()) {
+            playerWin();
+        } else {
+            playerLose();
         }
     }
 }

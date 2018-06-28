@@ -82,9 +82,9 @@ public class HomeActivity extends AppCompatActivity {
         final Game game = new Game(gameConfig, getGameListener(), new Player(),new Player());*/
 
 
-       GameComponent gameComponent = DaggerGameComponent.builder().gameModule(new GameModule(getGameListener())).build();
+        GameComponent gameComponent = DaggerGameComponent.builder().gameModule(new GameModule(getGameListener())).build();
 
-       gameComponent.inject(this);
+        gameComponent.inject(this);
 
 
         ArrayList<Choice> choices = new ArrayList<>();
@@ -143,6 +143,12 @@ public class HomeActivity extends AppCompatActivity {
             }
 
             @Override
+            public void playerOversFinish() {
+                Log.d(Constants.TAG, "playerOversFinish ");
+                battingIndicator.setText("Bowling");
+            }
+
+            @Override
             public void draw() {
                 Log.d(Constants.TAG, "draw ");
             }
@@ -166,10 +172,16 @@ public class HomeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void choice(int playerChoice, int opponentChoice) {
-                Log.d(Constants.TAG, "playerChoice " + playerChoice + "\nopponentChoice " + opponentChoice);
+            public void choice(int playerChoice, int opponentChoice, String overs) {
+                Log.d(Constants.TAG, "playerChoice " + playerChoice + "\nopponentChoice " + opponentChoice + " Overs- " + overs);
                 HomeActivity.this.playerChoice.setText(String.valueOf(playerChoice));
                 HomeActivity.this.opponentChoice.setText(String.valueOf(opponentChoice));
+            }
+
+            @Override
+            public void opponentOversFinish() {
+                Log.d(Constants.TAG, "opponentOversFinish ");
+                battingIndicator.setText("Batting");
             }
         };
     }

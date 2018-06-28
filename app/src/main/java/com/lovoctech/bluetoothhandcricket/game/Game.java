@@ -10,12 +10,17 @@ public class Game {
     private GameConfig gameConfig;
     private Player player;
     private Player opponent;
+    private Over overs;
 
     private Game() {
 
     }
 
-    public Game(GameConfig gameConfig, GameListener gameListener, Player player, Player opponent) {
+    public Game(GameConfig gameConfig,
+                GameListener gameListener,
+                Player player,
+                Player opponent,
+                Over overs) {
         this.gameConfig = gameConfig;
         this.player = player;
         this.opponent = opponent;
@@ -23,6 +28,7 @@ public class Game {
         player.setWickets(gameConfig.getWickets());
         opponent.setWickets(gameConfig.getWickets());
         this.gameListener = gameListener;
+        this.overs = overs;
         gameListener.prepare(player, opponent, this.gameConfig);
     }
 
@@ -42,8 +48,9 @@ public class Game {
                               int run) {
 
         Log.d(Constants.TAG, "TICK ");
+        overs.ballIncrement();
+        gameListener.play(playerChoice, opponentChoice, overs.getOverString());
 
-        gameListener.choice(playerChoice, opponentChoice);
         if (playerChoice == opponentChoice) {
             battingPlayer.out();
             if (battingPlayer.isAllOut()) {
@@ -56,19 +63,35 @@ public class Game {
                     }
                 } else {
                     gameListener.allOut();
+                    overs.reset();
                     battingPlayer.setBatting(false);
                     bowlingPlayer.setBatting(true);
                 }
             } else {
                 gameListener.out();
+                checkForOverFinish(battingPlayer, bowlingPlayer);
             }
         } else {
             battingPlayer.score(run);
             gameListener.score(battingPlayer.getScore());
+            checkForOverFinish(battingPlayer, bowlingPlayer);
             if (bowlingPlayer.isBattingOver() && battingPlayer.getScore() > bowlingPlayer.getScore()) {
                 battingPlayer.setBattingOver(true);
                 gameListener.win();
             }
+        }
+    }
+
+    private void checkForOverFinish(Player battingPlayer, Player bowlingPlayer) {
+        if (!overs.isFinished()) return;
+        if (bowlingPlayer.isBattingOver()) {
+            gameListener.declareBowlingPlayerWin();
+        } else {
+            battingPlayer.setBatting(false);
+            battingPlayer.setBattingOver(true);
+            bowlingPlayer.setBatting(true);
+            gameListener.overFinish();
+            overs.reset();
         }
     }
 
