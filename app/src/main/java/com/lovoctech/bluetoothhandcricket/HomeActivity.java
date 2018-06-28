@@ -16,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.TurnBasedMultiplayerClient;
 import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatchConfig;
@@ -160,6 +161,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void opponentAllOut(int wickets) {
                 Log.d(Constants.TAG, "opponentAllOut ");
+                battingIndicator.setText("Batting");
                 opponentWicket.setText(wickets + "/" + wickets);
             }
 
