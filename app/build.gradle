@@ -57,6 +57,8 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //Play service
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
+    //Play Games
+    implementation 'com.google.android.gms:play-services-games:15.0.1'
     //Dagger 2
     implementation 'com.google.dagger:dagger:2.13'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.13'

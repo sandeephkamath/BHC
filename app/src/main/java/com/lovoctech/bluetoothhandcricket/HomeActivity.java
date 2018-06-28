@@ -16,12 +16,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.games.Games;
+import com.google.android.gms.games.TurnBasedMultiplayerClient;
+import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatchConfig;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.lovoctech.bluetoothhandcricket.game.Game;
-import com.lovoctech.bluetoothhandcricket.game.GameConfig;
 import com.lovoctech.bluetoothhandcricket.game.GameListener;
-import com.lovoctech.bluetoothhandcricket.game.Player;
 import com.lovoctech.bluetoothhandcricket.game.dependency.DaggerGameComponent;
 import com.lovoctech.bluetoothhandcricket.game.dependency.GameComponent;
 import com.lovoctech.bluetoothhandcricket.game.dependency.GameModule;
@@ -69,6 +70,9 @@ public class HomeActivity extends AppCompatActivity {
     @Inject
     Game game;
 
+    @Inject
+    ArrayList<Choice> choices;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,25 +80,17 @@ public class HomeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-       /* GameConfig gameConfig = new GameConfig();
-        gameConfig.setWickets(2);
-        gameConfig.setAIOpponent(true);
-        final Game game = new Game(gameConfig, getGameListener(), new Player(),new Player());*/
-
-
-        GameComponent gameComponent = DaggerGameComponent.builder().gameModule(new GameModule(getGameListener())).build();
+        GameComponent gameComponent = DaggerGameComponent
+                .builder()
+                .gameModule(new GameModule(getGameListener()))
+                .build();
 
         gameComponent.inject(this);
+        setUpGameUI();
+        // signInSilently();
+    }
 
-
-        ArrayList<Choice> choices = new ArrayList<>();
-
-        for (int i = 1; i <= 6; i++) {
-            Choice choice = new Choice();
-            choice.setValue(i);
-            choices.add(choice);
-        }
-
+    private void setUpGameUI() {
         ChoiceAdapter choiceAdapter = new ChoiceAdapter(choices, new ChoiceListener() {
             @Override
             public void onChoice(Choice choice) {
@@ -102,11 +98,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
         choiceView.setLayoutManager(new GridLayoutManager(this, 3));
-
-
         choiceView.setAdapter(choiceAdapter);
-
-        // signInSilently();
     }
 
     private GameListener getGameListener() {
@@ -197,6 +189,7 @@ public class HomeActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // The signed in account is stored in the task's result.
                             GoogleSignInAccount signedInAccount = task.getResult();
+                            onSignIn(signedInAccount);
                         } else {
                             // Player will need to sign-in explicitly using via UI
                             startSignInIntent();
@@ -222,6 +215,7 @@ public class HomeActivity extends AppCompatActivity {
             if (result.isSuccess()) {
                 // The signed in account is stored in the result.
                 GoogleSignInAccount signedInAccount = result.getSignInAccount();
+                onSignIn(signedInAccount);
             } else {
                 String message = result.getStatus().getStatusMessage();
                 if (message == null || message.isEmpty()) {
@@ -231,6 +225,12 @@ public class HomeActivity extends AppCompatActivity {
                         .setNeutralButton(android.R.string.ok, null).show();
             }
         }
+    }
+
+    private void onSignIn(GoogleSignInAccount googleSignInAccount) {
+        TurnBasedMultiplayerClient turnBasedMultiplayerClient = Games.getTurnBasedMultiplayerClient(this, googleSignInAccount);
+        TurnBasedMatchConfig turnBasedMatchConfig = TurnBasedMatchConfig.builder().setAutoMatchCriteria(new Bundle()).build();
+        turnBasedMultiplayerClient.createMatch(turnBasedMatchConfig);
     }
 
 }
