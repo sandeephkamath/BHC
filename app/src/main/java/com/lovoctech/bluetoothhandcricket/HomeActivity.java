@@ -1,14 +1,18 @@
 package com.lovoctech.bluetoothhandcricket;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -33,6 +37,8 @@ import com.lovoctech.bluetoothhandcricket.game.dependency.GameModule;
 import com.lovoctech.bluetoothhandcricket.ui.ChoiceAdapter;
 import com.lovoctech.bluetoothhandcricket.ui.ChoiceListener;
 import com.lovoctech.bluetoothhandcricket.ui.model.Choice;
+import com.lovoctech.bluetoothhandcricket.ui.model.GameUIModel;
+import com.lovoctech.bluetoothhandcricket.ui.model.GameViewModel;
 import com.lovoctech.bluetoothhandcricket.util.Constants;
 
 import java.util.ArrayList;
@@ -86,12 +92,21 @@ public class HomeActivity extends AppCompatActivity {
 
         GameComponent gameComponent = DaggerGameComponent
                 .builder()
-                .gameModule(new GameModule(getGameListener()))
+                .gameModule(new GameModule(getGameListener(), this))
                 .build();
 
         gameComponent.inject(this);
         setUpGameUI();
         // signInSilently();
+
+        game.getGameViewModel().getGameUIModel().observe(this, new Observer<GameUIModel>() {
+            @Override
+            public void onChanged(@Nullable GameUIModel gameUIModel) {
+                if (gameUIModel != null) {
+                    Toast.makeText(HomeActivity.this, "Score " + gameUIModel.getPlayerScore(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void setUpGameUI() {
@@ -238,11 +253,11 @@ public class HomeActivity extends AppCompatActivity {
         TurnBasedMatchConfig turnBasedMatchConfig = TurnBasedMatchConfig.builder().setAutoMatchCriteria(autoMatchCriteria).build();
         turnBasedMultiplayerClient.createMatch(turnBasedMatchConfig)
                 .addOnSuccessListener(new OnSuccessListener<TurnBasedMatch>() {
-            @Override
-            public void onSuccess(TurnBasedMatch turnBasedMatch) {
+                    @Override
+                    public void onSuccess(TurnBasedMatch turnBasedMatch) {
 
-            }
-        });
+                    }
+                });
     }
 
 }
