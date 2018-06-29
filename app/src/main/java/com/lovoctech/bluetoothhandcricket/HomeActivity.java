@@ -19,8 +19,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.TurnBasedMultiplayerClient;
+import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
+import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatch;
 import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatchConfig;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.lovoctech.bluetoothhandcricket.game.Game;
 import com.lovoctech.bluetoothhandcricket.game.GameListener;
@@ -231,8 +234,15 @@ public class HomeActivity extends AppCompatActivity {
 
     private void onSignIn(GoogleSignInAccount googleSignInAccount) {
         TurnBasedMultiplayerClient turnBasedMultiplayerClient = Games.getTurnBasedMultiplayerClient(this, googleSignInAccount);
-        TurnBasedMatchConfig turnBasedMatchConfig = TurnBasedMatchConfig.builder().setAutoMatchCriteria(new Bundle()).build();
-        turnBasedMultiplayerClient.createMatch(turnBasedMatchConfig);
+        Bundle autoMatchCriteria = RoomConfig.createAutoMatchCriteria(1, 1, 0);
+        TurnBasedMatchConfig turnBasedMatchConfig = TurnBasedMatchConfig.builder().setAutoMatchCriteria(autoMatchCriteria).build();
+        turnBasedMultiplayerClient.createMatch(turnBasedMatchConfig)
+                .addOnSuccessListener(new OnSuccessListener<TurnBasedMatch>() {
+            @Override
+            public void onSuccess(TurnBasedMatch turnBasedMatch) {
+
+            }
+        });
     }
 
 }
