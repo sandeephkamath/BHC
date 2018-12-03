@@ -1,7 +1,6 @@
 package com.lovoctech.bluetoothhandcricket;
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,7 +19,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.TurnBasedMultiplayerClient;
 import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
@@ -37,8 +35,6 @@ import com.lovoctech.bluetoothhandcricket.game.dependency.GameModule;
 import com.lovoctech.bluetoothhandcricket.ui.ChoiceAdapter;
 import com.lovoctech.bluetoothhandcricket.ui.ChoiceListener;
 import com.lovoctech.bluetoothhandcricket.ui.model.Choice;
-import com.lovoctech.bluetoothhandcricket.ui.model.GameUIModel;
-import com.lovoctech.bluetoothhandcricket.ui.model.GameViewModel;
 import com.lovoctech.bluetoothhandcricket.util.Constants;
 
 import java.util.ArrayList;
@@ -99,14 +95,6 @@ public class HomeActivity extends AppCompatActivity {
         setUpGameUI();
         // signInSilently();
 
-        game.getGameViewModel().getGameUIModel().observe(this, new Observer<GameUIModel>() {
-            @Override
-            public void onChanged(@Nullable GameUIModel gameUIModel) {
-                if (gameUIModel != null) {
-                    Toast.makeText(HomeActivity.this, "Score " + gameUIModel.getPlayerScore(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     private void setUpGameUI() {

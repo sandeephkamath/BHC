@@ -1,14 +1,11 @@
 package com.lovoctech.bluetoothhandcricket.game;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.util.Log;
 
-import com.lovoctech.bluetoothhandcricket.ui.model.GameViewModel;
 import com.lovoctech.bluetoothhandcricket.util.Constants;
 
 public class Game {
 
-    private GameViewModel gameViewModel;
     private GameListener gameListener;
     private GameConfig gameConfig;
     private Player player;
@@ -23,8 +20,7 @@ public class Game {
                 GameListener gameListener,
                 Player player,
                 Player opponent,
-                Over overs,
-                GameViewModel gameViewModel) {
+                Over overs) {
         this.gameConfig = gameConfig;
         this.player = player;
         this.opponent = opponent;
@@ -33,8 +29,7 @@ public class Game {
         opponent.setWickets(gameConfig.getWickets());
         this.gameListener = gameListener;
         this.overs = overs;
-        this.gameViewModel = gameViewModel;
-        gameListener.prepare(player, opponent, this.gameConfig,this.gameViewModel);
+        gameListener.prepare(player, opponent, this.gameConfig);
     }
 
     public void choice(int playerChoice) {
@@ -108,7 +103,4 @@ public class Game {
         return 0;
     }
 
-    public GameViewModel getGameViewModel() {
-        return gameViewModel;
-    }
 }

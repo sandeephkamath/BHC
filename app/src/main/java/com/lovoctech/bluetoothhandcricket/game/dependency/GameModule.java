@@ -1,9 +1,6 @@
 package com.lovoctech.bluetoothhandcricket.game.dependency;
 
-import android.app.Activity;
-import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 
 import com.lovoctech.bluetoothhandcricket.game.Game;
@@ -12,7 +9,6 @@ import com.lovoctech.bluetoothhandcricket.game.GameListener;
 import com.lovoctech.bluetoothhandcricket.game.Over;
 import com.lovoctech.bluetoothhandcricket.game.Player;
 import com.lovoctech.bluetoothhandcricket.ui.model.Choice;
-import com.lovoctech.bluetoothhandcricket.ui.model.GameViewModel;
 
 import java.util.ArrayList;
 
@@ -48,8 +44,8 @@ public class GameModule {
     }
 
     @Provides
-    Game providesGame(GameConfig gameConfig, Player player, Player opponent, Over overs, GameViewModel gameViewModel) {
-        return new Game(gameConfig, gameListener, player, opponent, overs, gameViewModel);
+    Game providesGame(GameConfig gameConfig, Player player, Player opponent, Over overs) {
+        return new Game(gameConfig, gameListener, player, opponent, overs);
     }
 
     @Provides
@@ -68,9 +64,5 @@ public class GameModule {
         return choices;
     }
 
-    @Provides
-    GameViewModel providesGameViewModel(){
-        return ViewModelProviders.of(activity).get(GameViewModel.class);
-    }
 
 }

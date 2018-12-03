@@ -1,8 +1,5 @@
 package com.lovoctech.bluetoothhandcricket.game;
 
-import com.lovoctech.bluetoothhandcricket.ui.model.GameUIModel;
-import com.lovoctech.bluetoothhandcricket.ui.model.GameViewModel;
-
 import javax.inject.Inject;
 
 public abstract class GameListener {
@@ -10,7 +7,6 @@ public abstract class GameListener {
     private Player player;
     private Player opponent;
     private GameConfig gameConfig;
-    private GameViewModel gameViewModel;
 
     public GameListener() {
 
@@ -23,12 +19,10 @@ public abstract class GameListener {
         this.gameConfig = gameConfig;
     }
 
-    public void prepare(Player player, Player opponent, GameConfig gameConfig, GameViewModel gameViewModel) {
+    public void prepare(Player player, Player opponent, GameConfig gameConfig) {
         this.player = player;
         this.opponent = opponent;
         this.gameConfig = gameConfig;
-        this.gameViewModel = gameViewModel;
-        this.gameViewModel.setValue(new GameUIModel());
     }
 
     public abstract void playerScore(int score);
@@ -64,9 +58,6 @@ public abstract class GameListener {
         if (player.isBatting()) {
             playerScore(score);
         } else {
-            if (gameViewModel.getGameUIModel().getValue() != null) {
-                gameViewModel.getGameUIModel().getValue().setPlayerScore(score);
-            }
             opponentScore(score);
         }
     }
