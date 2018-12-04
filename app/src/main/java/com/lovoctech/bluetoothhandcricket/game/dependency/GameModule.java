@@ -1,6 +1,5 @@
 package com.lovoctech.bluetoothhandcricket.game.dependency;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.support.v4.app.FragmentActivity;
 
 import com.lovoctech.bluetoothhandcricket.game.Game;
