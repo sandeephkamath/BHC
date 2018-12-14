@@ -1,17 +1,14 @@
 package com.lovoctech.bluetoothhandcricket;
 
-import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -29,6 +26,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.lovoctech.bluetoothhandcricket.game.Game;
 import com.lovoctech.bluetoothhandcricket.game.GameListener;
+import com.lovoctech.bluetoothhandcricket.game.Over;
 import com.lovoctech.bluetoothhandcricket.game.dependency.DaggerGameComponent;
 import com.lovoctech.bluetoothhandcricket.game.dependency.GameComponent;
 import com.lovoctech.bluetoothhandcricket.game.dependency.GameModule;
@@ -85,7 +83,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
-
         GameComponent gameComponent = DaggerGameComponent
                 .builder()
                 .gameModule(new GameModule(getGameListener(), this))
@@ -101,7 +98,7 @@ public class HomeActivity extends AppCompatActivity {
         ChoiceAdapter choiceAdapter = new ChoiceAdapter(choices, new ChoiceListener() {
             @Override
             public void onChoice(Choice choice) {
-                game.choice(choice.getValue());
+                game.choice(choice);
             }
         });
         choiceView.setLayoutManager(new GridLayoutManager(this, 3));
@@ -172,9 +169,9 @@ public class HomeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void choice(int playerChoice, int opponentChoice, String overs) {
+            public void choice(Choice playerChoice, Choice opponentChoice, Over overs) {
                 Log.d(Constants.TAG, "playerChoice " + playerChoice + "\nopponentChoice " + opponentChoice + " Overs- " + overs);
-                HomeActivity.this.playerChoice.setText(String.valueOf(playerChoice));
+                HomeActivity.this.playerChoice.setText(playerChoice.toString());
                 HomeActivity.this.opponentChoice.setText(String.valueOf(opponentChoice));
             }
 

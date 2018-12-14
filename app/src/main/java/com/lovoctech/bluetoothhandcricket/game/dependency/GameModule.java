@@ -22,7 +22,7 @@ public class GameModule {
     private FragmentActivity activity;
 
 
-    public GameModule(GameListener gameListener,FragmentActivity activity) {
+    public GameModule(GameListener gameListener, FragmentActivity activity) {
         this.gameListener = gameListener;
         this.activity = activity;
     }
@@ -56,9 +56,7 @@ public class GameModule {
     ArrayList<Choice> providesChoices() {
         ArrayList<Choice> choices = new ArrayList<>();
         for (int i = 1; i <= 6; i++) {
-            Choice choice = new Choice();
-            choice.setValue(i);
-            choices.add(choice);
+            choices.add(new Choice(i));
         }
         return choices;
     }

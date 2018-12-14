@@ -1,5 +1,7 @@
 package com.lovoctech.bluetoothhandcricket.game;
 
+import com.lovoctech.bluetoothhandcricket.ui.model.Choice;
+
 import javax.inject.Inject;
 
 public abstract class GameListener {
@@ -45,12 +47,12 @@ public abstract class GameListener {
 
     public abstract void opponentAllOut(int wickets);
 
-    public abstract void choice(int playerChoice, int opponentChoice, String overs);
+    public abstract void choice(Choice playerChoice, Choice opponentChoice, Over overs);
 
     public abstract void opponentOversFinish();
 
 
-    public void play(int playerChoice, int opponentChoice, String overs) {
+    public void play(Choice playerChoice, Choice opponentChoice, Over overs) {
         choice(playerChoice, opponentChoice, overs);
     }
 

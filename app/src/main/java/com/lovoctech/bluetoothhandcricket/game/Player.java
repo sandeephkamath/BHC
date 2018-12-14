@@ -1,11 +1,13 @@
 package com.lovoctech.bluetoothhandcricket.game;
 
+import com.lovoctech.bluetoothhandcricket.ui.model.Choice;
+
 import javax.inject.Inject;
 
 public class Player {
 
     @Inject
-    public Player(){
+    public Player() {
 
     }
 
@@ -46,8 +48,8 @@ public class Player {
         this.battingOver = battingOver;
     }
 
-    public void score(int playerScore) {
-        score += playerScore;
+    public void score(Choice playerChoice) {
+        score += playerChoice.getValue();
     }
 
     public void out() {
@@ -56,5 +58,13 @@ public class Player {
 
     public boolean isAllOut() {
         return wickets == 0;
+    }
+
+    public boolean isScoreEqual(Player player) {
+        return score == player.getScore();
+    }
+
+    public boolean isScoreGreater(Player player) {
+        return score > player.getScore();
     }
 }

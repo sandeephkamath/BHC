@@ -2,6 +2,7 @@ package com.lovoctech.bluetoothhandcricket.game;
 
 import android.util.Log;
 
+import com.lovoctech.bluetoothhandcricket.ui.model.Choice;
 import com.lovoctech.bluetoothhandcricket.util.Constants;
 
 public class Game {
@@ -32,8 +33,8 @@ public class Game {
         gameListener.prepare(player, opponent, this.gameConfig);
     }
 
-    public void choice(int playerChoice) {
-        int opponentChoice = getOpponentChoice();
+    public void choice(Choice playerChoice) {
+        Choice opponentChoice = getOpponentChoice();
         if (player.isBatting()) {
             handleChoice(player, opponent, playerChoice, opponentChoice, playerChoice);
         } else {
@@ -43,20 +44,20 @@ public class Game {
 
     private void handleChoice(Player battingPlayer,
                               Player bowlingPlayer,
-                              int playerChoice,
-                              int opponentChoice,
-                              int run) {
+                              Choice playerChoice,
+                              Choice opponentChoice,
+                              Choice run) {
 
         Log.d(Constants.TAG, "TICK ");
         overs.ballIncrement();
-        gameListener.play(playerChoice, opponentChoice, overs.getOverString());
+        gameListener.play(playerChoice, opponentChoice, overs);
 
-        if (playerChoice == opponentChoice) {
+        if (playerChoice.equals(opponentChoice)) {
             battingPlayer.out();
             if (battingPlayer.isAllOut()) {
                 battingPlayer.setBattingOver(true);
                 if (bowlingPlayer.isBattingOver()) {
-                    if (battingPlayer.getScore() == bowlingPlayer.getScore()) {
+                    if (battingPlayer.isScoreEqual(bowlingPlayer)) {
                         gameListener.draw();
                     } else {
                         gameListener.lose();
@@ -75,7 +76,7 @@ public class Game {
             battingPlayer.score(run);
             gameListener.score(battingPlayer.getScore());
             checkForOverFinish(battingPlayer, bowlingPlayer);
-            if (bowlingPlayer.isBattingOver() && battingPlayer.getScore() > bowlingPlayer.getScore()) {
+            if (bowlingPlayer.isBattingOver() && battingPlayer.isScoreGreater(bowlingPlayer)) {
                 battingPlayer.setBattingOver(true);
                 gameListener.win();
             }
@@ -95,12 +96,12 @@ public class Game {
         }
     }
 
-    private int getOpponentChoice() {
+    private Choice getOpponentChoice() {
         if (gameConfig.isAIOpponent()) {
-            return 1;//new RandomNumberGeneratorUtil(gameConfig).getRandomNumber();
+            return new Choice(1);//new RandomNumberGeneratorUtil(gameConfig).getRandomNumber();
         }
 
-        return 0;
+        return new Choice(0);
     }
 
 }

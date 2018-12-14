@@ -27,7 +27,8 @@ public class Over {
         ball = 0;
     }
 
-    public String getOverString() {
+    @Override
+    public String toString() {
         int over = ball / 6;
         int ball = this.ball % 6;
         return String.format(Locale.ENGLISH, "%d.%d", over, ball);
