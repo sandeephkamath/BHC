@@ -28,12 +28,12 @@ android:
       - 'android-sdk-preview-license-.+'
       - 'android-sdk-license-.+'
       - 'google-gdk-license-.+'
-      
+
   env:
       global:
-          - ANDROID_API_LEVEL=28
-          - ANDROID_EMULATOR_LEVEL=28
-          - ANDROID_BUILD_TOOLS_VERSION=28.0.3
+          - ANDROID_API_LEVEL=26
+          - ANDROID_EMULATOR_LEVEL=26
+          - ANDROID_BUILD_TOOLS_VERSION=26.0.1
           - ANDROID_ABI=armeabi-v7a
           - ANDROID_TAG=google_apis
           - ADB_INSTALL_TIMEOUT=20
