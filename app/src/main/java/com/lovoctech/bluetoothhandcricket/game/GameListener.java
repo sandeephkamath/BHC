@@ -27,25 +27,25 @@ public abstract class GameListener {
         this.gameConfig = gameConfig;
     }
 
-    public abstract void playerScore(int score);
+    public abstract void playerScore(Player player);
 
-    public abstract void playerWicketFell(int totalWickets, int remainingWickets);
+    public abstract void playerWicketFell(Player player);
 
     public abstract void playerLose();
 
     public abstract void playerWin();
 
-    public abstract void playerAllOut(int wickets);
+    public abstract void playerAllOut(Player player);
 
     public abstract void playerOversFinish();
 
     public abstract void draw();
 
-    public abstract void opponentScore(int score);
+    public abstract void opponentScore(Player opponent);
 
-    public abstract void opponentWicketFell(int totalWickets, int remainingWickets);
+    public abstract void opponentWicketFell(Player opponent);
 
-    public abstract void opponentAllOut(int wickets);
+    public abstract void opponentAllOut(Player opponent);
 
     public abstract void choice(Choice playerChoice, Choice opponentChoice, Over overs);
 
@@ -56,19 +56,19 @@ public abstract class GameListener {
         choice(playerChoice, opponentChoice, overs);
     }
 
-    public void score(int score) {
+    public void score() {
         if (player.isBatting()) {
-            playerScore(score);
+            playerScore(player);
         } else {
-            opponentScore(score);
+            opponentScore(opponent);
         }
     }
 
     public void out() {
         if (player.isBatting()) {
-            playerWicketFell(gameConfig.getWickets(), player.getWickets());
+            playerWicketFell(player);
         } else {
-            opponentWicketFell(gameConfig.getWickets(), opponent.getWickets());
+            opponentWicketFell(opponent);
         }
     }
 
@@ -91,9 +91,9 @@ public abstract class GameListener {
 
     public void allOut() {
         if (player.isBatting()) {
-            playerAllOut(gameConfig.getWickets());
+            playerAllOut(player);
         } else {
-            opponentAllOut(gameConfig.getWickets());
+            opponentAllOut(opponent);
         }
     }
 

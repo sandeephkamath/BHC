@@ -22,12 +22,20 @@ public class GameConfig {
         return wickets;
     }
 
-
     public void setAIOpponent(boolean aiOpponent) {
         this.aiOpponent = aiOpponent;
     }
 
     public boolean isAIOpponent() {
         return aiOpponent;
+    }
+
+    @Override
+    public String toString() {
+        return "\nGameConfig{" +
+                "\n\twickets=" + wickets +
+                ",\n\taiOpponent=" + aiOpponent +
+                ",\n\tovers=" + overs +
+                "\n}";
     }
 }

@@ -19,12 +19,10 @@ public class GameModule {
 
 
     private GameListener gameListener;
-    private FragmentActivity activity;
 
 
     public GameModule(GameListener gameListener, FragmentActivity activity) {
         this.gameListener = gameListener;
-        this.activity = activity;
     }
 
 
@@ -38,8 +36,10 @@ public class GameModule {
     }
 
     @Provides
-    Player providesPlayer() {
-        return new Player();
+    Player providesPlayer(GameConfig gameConfig) {
+        Player player = new Player();
+        player.setWickets(gameConfig.getWickets());
+        return player;
     }
 
     @Provides

@@ -26,8 +26,7 @@ public class Game {
         this.player = player;
         this.opponent = opponent;
         opponent.setBatting(true);//// TODO: 27/6/18 Implement toss logic
-        player.setWickets(gameConfig.getWickets());
-        opponent.setWickets(gameConfig.getWickets());
+
         this.gameListener = gameListener;
         this.overs = overs;
         gameListener.prepare(player, opponent, this.gameConfig);
@@ -74,13 +73,14 @@ public class Game {
             }
         } else {
             battingPlayer.score(run);
-            gameListener.score(battingPlayer.getScore());
+            gameListener.score();
             checkForOverFinish(battingPlayer, bowlingPlayer);
             if (bowlingPlayer.isBattingOver() && battingPlayer.isScoreGreater(bowlingPlayer)) {
                 battingPlayer.setBattingOver(true);
                 gameListener.win();
             }
         }
+        Log.d(Constants.TAG, toString());
     }
 
     private void checkForOverFinish(Player battingPlayer, Player bowlingPlayer) {
@@ -104,4 +104,13 @@ public class Game {
         return new Choice(0);
     }
 
+    @Override
+    public String toString() {
+        return "\nGame{" +
+                ",\ngameConfig=\t" + gameConfig +
+                ",\nPLAYER=\t" + player +
+                ",\nOPPONENT=\t" + opponent +
+                ",\novers=" + overs +
+                "\n}";
+    }
 }

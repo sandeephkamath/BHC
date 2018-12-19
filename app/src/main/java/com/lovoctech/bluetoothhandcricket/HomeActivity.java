@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.lovoctech.bluetoothhandcricket.game.Game;
 import com.lovoctech.bluetoothhandcricket.game.GameListener;
 import com.lovoctech.bluetoothhandcricket.game.Over;
+import com.lovoctech.bluetoothhandcricket.game.Player;
 import com.lovoctech.bluetoothhandcricket.game.dependency.DaggerGameComponent;
 import com.lovoctech.bluetoothhandcricket.game.dependency.GameComponent;
 import com.lovoctech.bluetoothhandcricket.game.dependency.GameModule;
@@ -108,15 +109,15 @@ public class HomeActivity extends AppCompatActivity {
     private GameListener getGameListener() {
         return new GameListener() {
             @Override
-            public void playerScore(int score) {
-                Log.d(Constants.TAG, "playerScore " + score);
-                playerScore.setText(String.valueOf(score));
+            public void playerScore(Player player) {
+                Log.d(Constants.TAG, "playerScore " + player.getScore());
+                playerScore.setText(String.valueOf(player.getScore()));
             }
 
             @Override
-            public void playerWicketFell(int totalWickets, int remainingWickets) {
-                Log.d(Constants.TAG, "playerWicketFell " + remainingWickets + "/" + totalWickets);
-                playerWicket.setText(remainingWickets + "/" + totalWickets);
+            public void playerWicketFell(Player player) {
+                Log.d(Constants.TAG, "playerWicketFell " + player.getWickets() + "/" + player.getTotalWickets());
+                playerWicket.setText(player.getWickets() + "/" + player.getTotalWickets());
             }
 
             @Override
@@ -132,10 +133,10 @@ public class HomeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void playerAllOut(int wickets) {
+            public void playerAllOut(Player player) {
                 Log.d(Constants.TAG, "playerAllOut ");
                 battingIndicator.setText("Bowling");
-                playerWicket.setText(wickets + "/" + wickets);
+                playerWicket.setText(player.getWickets() + "/" + player.getWickets());
             }
 
             @Override
@@ -150,22 +151,22 @@ public class HomeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void opponentScore(int score) {
-                Log.d(Constants.TAG, "opponentScore " + score);
-                opponentScore.setText(String.valueOf(score));
+            public void opponentScore(Player opponent) {
+                Log.d(Constants.TAG, "opponentScore " + opponent.getScore());
+                opponentScore.setText(String.valueOf(opponent.getScore()));
             }
 
             @Override
-            public void opponentWicketFell(int totalWickets, int remainingWickets) {
-                Log.d(Constants.TAG, "opponentWicketFell " + remainingWickets + "/" + totalWickets);
-                opponentWicket.setText(remainingWickets + "/" + totalWickets);
+            public void opponentWicketFell(Player opponent) {
+                Log.d(Constants.TAG, "opponentWicketFell " + opponent.getWickets() + "/" + opponent.getTotalWickets());
+                opponentWicket.setText(opponent.getWickets() + "/" + opponent.getTotalWickets());
             }
 
             @Override
-            public void opponentAllOut(int wickets) {
+            public void opponentAllOut(Player opponent) {
                 Log.d(Constants.TAG, "opponentAllOut ");
                 battingIndicator.setText("Batting");
-                opponentWicket.setText(wickets + "/" + wickets);
+                opponentWicket.setText(opponent.getWickets() + "/" + opponent.getWickets());
             }
 
             @Override

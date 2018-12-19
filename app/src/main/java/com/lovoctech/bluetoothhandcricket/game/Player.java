@@ -2,6 +2,9 @@ package com.lovoctech.bluetoothhandcricket.game;
 
 import com.lovoctech.bluetoothhandcricket.ui.model.Choice;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.inject.Inject;
 
 public class Player {
@@ -11,17 +14,15 @@ public class Player {
 
     }
 
-    int score;
-    int wickets;
-    boolean battingOver = false;
-    boolean batting = false;
+    private int score;
+    private int wickets;
+    private boolean battingOver;
+    private boolean batting;
+    private int totalWickets;
+    private ArrayList<Integer> scores;
 
     public int getScore() {
         return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
     }
 
     public int getWickets() {
@@ -30,6 +31,7 @@ public class Player {
 
     public void setWickets(int wickets) {
         this.wickets = wickets;
+        totalWickets = wickets;
     }
 
     public void setBatting(boolean batting) {
@@ -53,6 +55,14 @@ public class Player {
     }
 
     public void out() {
+        if (scores == null) {
+            scores = new ArrayList<>(wickets);
+            scores.add(score);
+        } else {
+            int currentPlayerScore = score - scores.get(scores.size() - 1);
+            scores.add(currentPlayerScore);
+        }
+
         wickets--;
     }
 
@@ -66,5 +76,24 @@ public class Player {
 
     public boolean isScoreGreater(Player player) {
         return score > player.getScore();
+    }
+
+    public ArrayList<Integer> getScores() {
+        return scores;
+    }
+
+    public int getTotalWickets() {
+        return totalWickets;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "\n\tscore=" + score +
+                ",\n\twickets= " + (totalWickets - wickets) + " / " + totalWickets +
+                ",\n\tbattingOver=" + battingOver +
+                ",\n\tbatting=" + batting +
+                ",\n\tscores=" + (scores == null ? score : Arrays.deepToString(scores.toArray())) +
+                "\n}";
     }
 }
