@@ -33,7 +33,7 @@ android:
       global:
           - ANDROID_API_LEVEL=26
           - ANDROID_EMULATOR_LEVEL=26
-          - ANDROID_BUILD_TOOLS_VERSION=26.0.1
+          - ANDROID_BUILD_TOOLS_VERSION=26.0.2
           - ANDROID_ABI=armeabi-v7a
           - ANDROID_TAG=google_apis
           - ADB_INSTALL_TIMEOUT=20

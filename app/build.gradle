@@ -4,7 +4,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.lovoctech.bluetoothhandcricket"
         minSdkVersion 16
@@ -41,7 +41,7 @@ android {
 
 dependencies {
     def daggerVer = 2.13
-    def api = "26.1.0"
+    def api = "26.0.2"
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:animated-vector-drawable:$api"
     implementation "com.android.support:support-media-compat:$api"
@@ -73,3 +73,15 @@ dependencies {
     //Architecture components
     implementation 'android.arch.lifecycle:extensions:1.1.1'
 }
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '26.0.2'
+            }
+        }
+    }
+}
+
